@@ -1,4 +1,140 @@
-app-store-reviews
-=================
+## About app-store-reviews
+Node.js module to download user reviews from the iTunes Store and the Mac App Store.
 
-Node.js module to download user reviews from the iTunes Store and the Mac App Store
+It supports:
+
+* All countries
+* All apps on the iTunes Store
+* All apps on the Mac App Store
+
+This module uses the public feed to customer reviews
+
+  http://itunes.apple.com/rss/customerreviews/page=1/id=555731861/sortby=mostrecent/json?l=en&cc=us
+
+## Installation
+app-store-reviews is available via the npm packet manager.
+
+```bash
+$ npm install app-store-reviews
+```
+
+## Usage
+You can find examples in the [examples](https://raw.github.com/jcoynel/app-store-reviews/master/examples/) folder.
+
+### Example 1: single app and country
+In this example we simply print the reviews of [Tunes Notifier](http://www.tunes-notifier.com) to the console from the **US Store**. The ID of the app is **555731861**.
+
+#### Code
+```js
+var appStoreReviewsModule = require('../lib/app-store-reviews.js');
+var appStoreReviews = new appStoreReviewsModule();
+
+appStoreReviews.on('review', function(review) {
+	console.log(review);
+});
+
+appStoreReviews.getReviews('555731861', 'us', 1);
+```
+
+#### Output
+```bash
+[ id: '676984080',
+  app: '555731861',
+  author: 'appwatching',
+  version: '1.1',
+  rate: '5',
+  title: 'Very good',
+  comment: 'Mucho mejor ahora. Ya se puede esconder el icono de la barra de menús.',
+  vote: '0',
+  country: 'us' ]
+```
+
+### Example 2: import to a database for all countries
+In this example we store the reviews in a MySQL database.
+
+You can find the structure of the database in [examples/reviews-to-mysql.sql](https://raw.github.com/jcoynel/app-store-reviews/master/examples/reviews-to-mysql.sql)
+
+#### Code
+```js
+var appStoreReviewsModule = require('../lib/app-store-reviews.js');
+var appStoreReviews = new appStoreReviewsModule();
+
+var mysql = require('mysql');
+
+function mysqlConnection()
+{
+  var db = mysql.createConnection ({
+		user : 'root',
+	    password : 'root',
+	    host : "localhost",
+	    database : "reviews",
+	    port : "3306"
+	});
+
+	return db;
+}
+
+function insertReviewInDb(id, app, author, version, rate, title, comment, country)
+{
+	var review = {
+		id: id,
+		app: app,
+		author: author,
+		version: version,
+		rate: rate,
+		title: title,
+		comment: comment,
+		country: country
+	}
+
+	var db = mysqlConnection();
+	db.connect();
+	db.query('INSERT IGNORE INTO reviews SET ?', review);
+	db.end();
+}
+
+appStoreReviews.on('review', function(review) {
+	insertReviewInDb(review['id'], review['app'], review['author'], review['version'], review['rate'], review['title'], review['comment'], review['country']);
+});
+
+appStoreReviews.on('nextPage', function(nextPage) {
+	appStoreReviews.getReviews(nextPage['appId'], nextPage['country'], nextPage['nextPage']);
+});
+
+
+var db = mysqlConnection();
+db.connect();
+db.query('SELECT * FROM apps WHERE enabled=1', function(err, rows, fields) {
+	if (err) {
+		console.log("DB error: " + err);
+	} else {
+		for (var index in rows) {
+			console.log("App: " + rows[index].id + " - " + rows[index].name);
+			
+			var countries;
+			if (rows[index].countries == null || rows[index].countries == "") {
+				countries = appStoreReviews.allCountries();
+			} else {
+				countries = rows[index].countries.split(',');
+				console.log(countries);
+			}
+			
+			for (var countryIndex in countries) {
+				appStoreReviews.getReviews(rows[index].id, countries[countryIndex], 1);
+			}
+		}
+	}
+});
+db.end();
+```
+
+
+## Licence (MIT)
+
+Copyright (c) 2013 Jules Coynel
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

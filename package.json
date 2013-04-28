@@ -1,0 +1,26 @@
+{
+  "author": {
+    "email": "julescoynel@gmail.com",
+    "name": "Jules Coynel",
+    "url": "http://www.tunes-notifier.com"
+  },
+  "name": "app-store-reviews",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jcoynel/app-store-reviews.git"
+  },
+  "keywords": [
+    "apple",
+    "Mac App Store",
+    "iTunes Store",
+    "review"
+  ],
+  "main": "lib/app-store-reviews.js",
+  "license": "MIT",
+  "description": "Download user reviews from the iTunes Store and the Mac App Store",
+  "homepage": "https://github.com/jcoynel/app-store-reviews",
+  "dependencies": {
+    "request": ">=2.0.0"
+  }
+}
