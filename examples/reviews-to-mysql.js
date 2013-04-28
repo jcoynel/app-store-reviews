@@ -1,7 +1,7 @@
 // Copyright (c) 2013 Jules Coynel
 // https://github.com/jcoynel/app-store-reviews
 
-var appStoreReviewsModule = require('../lib/app-store-reviews.js');
+var appStoreReviewsModule = require('app-store-reviews');
 var appStoreReviews = new appStoreReviewsModule();
 
 var mysql = require('mysql');

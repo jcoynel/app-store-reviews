@@ -4,8 +4,10 @@
     "name": "Jules Coynel",
     "url": "http://www.tunes-notifier.com"
   },
-  "name": "app-store-reviews",
-  "version": "0.0.1",
+  "homepage": "https://github.com/jcoynel/app-store-reviews",
+  "dependencies": {
+    "request": ">=2.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/jcoynel/app-store-reviews.git"
@@ -18,9 +20,7 @@
   ],
   "main": "lib/app-store-reviews.js",
   "license": "MIT",
-  "description": "Download user reviews from the iTunes Store and the Mac App Store",
-  "homepage": "https://github.com/jcoynel/app-store-reviews",
-  "dependencies": {
-    "request": ">=2.0.0"
-  }
+  "version": "0.0.2",
+  "name": "app-store-reviews",
+  "description": "Download user reviews from the iTunes Store and the Mac App Store."
 }

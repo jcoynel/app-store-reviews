@@ -26,7 +26,7 @@ In this example we simply print the reviews of [Tunes Notifier](http://www.tunes
 
 #### Code
 ```js
-var appStoreReviewsModule = require('../lib/app-store-reviews.js');
+var appStoreReviewsModule = require('app-store-reviews');
 var appStoreReviews = new appStoreReviewsModule();
 
 appStoreReviews.on('review', function(review) {
@@ -56,7 +56,7 @@ You can find the structure of the database in [examples/reviews-to-mysql.sql](ht
 
 #### Code
 ```js
-var appStoreReviewsModule = require('../lib/app-store-reviews.js');
+var appStoreReviewsModule = require('app-store-reviews');
 var appStoreReviews = new appStoreReviewsModule();
 
 var mysql = require('mysql');
