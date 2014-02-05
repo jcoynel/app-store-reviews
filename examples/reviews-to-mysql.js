@@ -1,5 +1,11 @@
-// Copyright (c) 2013 Jules Coynel
+// Copyright (c) 2013-2014 Jules Coynel
 // https://github.com/jcoynel/app-store-reviews
+
+/*
+Node.js modules required
+	- app-store-reviews
+	- mysql
+*/
 
 var appStoreReviewsModule = require('app-store-reviews');
 var appStoreReviews = new appStoreReviewsModule();
@@ -47,6 +53,7 @@ appStoreReviews.on('nextPage', function(nextPage) {
 });
 
 
+console.log("Starting reviews-to-mysql.js at " + Date());
 var db = mysqlConnection();
 db.connect();
 db.query('SELECT * FROM apps WHERE enabled=1', function(err, rows, fields) {

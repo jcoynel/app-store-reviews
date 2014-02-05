@@ -22,7 +22,7 @@ $ npm install app-store-reviews
 ```
 
 ## Usage
-You can find examples in the [examples](https://raw.github.com/jcoynel/app-store-reviews/master/examples/) folder.
+You can find all the following examples in the [examples](https://raw.github.com/jcoynel/app-store-reviews/master/examples/) folder.
 
 ### Example 1: single app and country
 In this example we simply print the reviews of [Tunes Notifier](http://www.tunes-notifier.com) to the console from the **US Store**. The ID of the app is **555731861**.
@@ -105,6 +105,7 @@ appStoreReviews.on('nextPage', function(nextPage) {
 });
 
 
+console.log("Starting reviews-to-mysql.js at " + Date());
 var db = mysqlConnection();
 db.connect();
 db.query('SELECT * FROM apps WHERE enabled=1', function(err, rows, fields) {
@@ -131,10 +132,39 @@ db.query('SELECT * FROM apps WHERE enabled=1', function(err, rows, fields) {
 db.end();
 ```
 
+### Example 3: automatically email new reviews
+In this example we store the reviews in a MySQL database and send the new reviews by email periodically using Cron.
+
+You can find the structure of the database in [examples/reviews-to-mysql.sql](https://raw.github.com/jcoynel/app-store-reviews/master/examples/reviews-to-mysql.sql).
+
+* In a directory, copy the following files
+ * [examples/reviews-to-mysql.js](https://raw.github.com/jcoynel/app-store-reviews/master/examples/reviews-to-mysql.js)
+ * [examples/mysql-to-email.js](https://raw.github.com/jcoynel/app-store-reviews/master/examples/mysql-to-email.js)
+ * [examples/reviews-to-email.sh](https://raw.github.com/jcoynel/app-store-reviews/master/examples/reviews-to-email.sh)
+
+* Install the required Node.js modules
+```bash
+$ npm install app-store-reviews
+$ npm install mysql
+$ npm install nodemailer
+```
+
+* In **reviews-to-mysql.js**, configure your database connection details.
+
+* In **mysql-to-email.js**, configure your database connection details and email address and password.
+
+* In **reviews-to-email.sh**, set the path to the directory containing this file.
+
+* Make **reviews-to-email.sh** executable: `chmod +x reviews-to-email.sh`
+
+* Add **reviews-to-email.sh** to Cron
+ * Edit the current crontab: `$ crontab -e`
+ * Add the following line (run every day at 12): `0 12 * * * /EXAMPLE/PATH/reviews-to-email.sh`
+ 
 
 ## Licence (MIT)
 
-Copyright (c) 2013 Jules Coynel
+Copyright (c) 2013-2014 Jules Coynel
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
