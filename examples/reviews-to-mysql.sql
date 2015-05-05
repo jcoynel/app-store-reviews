@@ -1,4 +1,4 @@
-/* Copyright (c) 2013-2014 Jules Coynel */
+/* Copyright (c) 2013-2015 Jules Coynel */
 /* https://github.com/jcoynel/app-store-reviews */
 
 -- --------------------------------------------------------
