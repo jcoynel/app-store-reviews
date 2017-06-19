@@ -12,7 +12,7 @@ It supports:
 
 This module uses the public feed to customer reviews
 
-  http://itunes.apple.com/rss/customerreviews/page=1/id=555731861/sortby=mostrecent/json?l=en&cc=us
+  https://itunes.apple.com/rss/customerreviews/page=1/id=555731861/sortby=mostrecent/xml?l=en&cc=us
 
 ## Installation
 app-store-reviews is available via the npm packet manager.
