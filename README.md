@@ -49,6 +49,7 @@ appStoreReviews.getReviews('555731861', 'us', 1);
   title: 'Very good',
   comment: 'Mucho mejor ahora. Ya se puede esconder el icono de la barra de menús.',
   vote: '0',
+  updated: '2012-10-19T12:48:41-07:00',
   country: 'us' ]
 ```
 
