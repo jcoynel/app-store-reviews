@@ -30,25 +30,6 @@ INSERT INTO `apps` (`id`, `name`, `countries`, `enabled`, `iphone`, `ipad`, `osx
 (555731861, 'Tunes Notifier', '', 1, 0, 0, 1, 'http://a1489.phobos.apple.com/us/r1000/108/Purple/v4/b3/42/0f/b3420f4d-cb55-adbc-4304-45d8e348bf71/icon.53x53-50.png', 'https://itunes.apple.com/app/id555731861'),
 (578238320, 'Mothercare', 'gb', 1, 1, 0, 0, 'http://a1853.phobos.apple.com/us/r1000/069/Purple2/v4/71/7e/fa/717efa25-1ff5-7720-1337-4e9f95bdc879/mzl.kylsixtw.53x53-50.png', 'https://itunes.apple.com/app/id578238320');
 
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `comments`
---
-DROP VIEW IF EXISTS `comments`;
-CREATE TABLE IF NOT EXISTS `comments` (
-`review_id` int(11) unsigned
-,`app` varchar(60)
-,`app_id` int(11) unsigned
-,`country` varchar(50)
-,`author` varchar(50)
-,`version` varchar(10)
-,`rate` tinyint(1)
-,`title` varchar(50)
-,`comment` text
-);
--- --------------------------------------------------------
-
 --
 -- Table structure for table `countries`
 --

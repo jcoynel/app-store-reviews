@@ -51,7 +51,7 @@ function processAppComments(app)
 {
 	var db1 = getMysqlConnection();
 	db1.connect();
-	db1.query('SELECT * FROM comments WHERE app_id = ? ORDER BY country ASC, rate DESC', app.id, function (commentsError, reviews) {
+	db1.query('SELECT * FROM reviews WHERE app = ? ORDER BY country ASC, rate DESC', app.id, function (commentsError, reviews) {
 		if (commentsError) {
 			console.log(commentsError);
 		} else {
@@ -59,7 +59,7 @@ function processAppComments(app)
 			if (reviews.length > 0) {
 				var db2 = getMysqlConnection();
 				db2.connect();
-				db2.query('SELECT COUNT(*) count, rate FROM comments WHERE app_id = ? GROUP BY rate ORDER BY rate DESC', app.id, function(error, rows) {
+				db2.query('SELECT COUNT(*) count, rate FROM reviews WHERE app = ? GROUP BY rate ORDER BY rate DESC', app.id, function(error, rows) {
 					var totalCount = 0;
 					var totalRateByCount = 0;
 
@@ -116,7 +116,7 @@ function processAppComments(app)
 							text += '------------------------------\n';
 						}
 						text += '***\n';
-						text += stars + ' stars (v' + review.version + ') - by ' + review.author + '\n';
+						text += stars + ' stars (v' + review.version + ' - ' + review.review_date + ') - by ' + review.author + '\n';
 						text += review.title + '\n';
 						text += review.comment + '\n';
 						text += '\n';
@@ -168,7 +168,7 @@ function markReviewsAsEmailed(reviews)
 	db.connect();
 	for (var i = 0; i < reviews.length; i++) {
 		var review = reviews[i];
-		db.query("UPDATE reviews SET emailed=1 WHERE id=?", review.review_id, function (error) {
+		db.query("UPDATE reviews SET emailed=1 WHERE id=?", review.id, function (error) {
 			if (error) {
 				console.log(error);
 			}
