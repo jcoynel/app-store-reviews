@@ -237,6 +237,7 @@ CREATE TABLE IF NOT EXISTS `reviews` (
   `country` varchar(2) COLLATE utf8_unicode_ci DEFAULT '',
   `app` int(11) DEFAULT NULL,
   `retrieved_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `review_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `emailed` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
