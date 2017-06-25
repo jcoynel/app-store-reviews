@@ -1,6 +1,6 @@
 ## About app-store-reviews
 
-[![NPM version](https://badge.fury.io/js/app-store-reviews.png)](http://badge.fury.io/js/app-store-reviews)
+[![NPM version](https://badge.fury.io/js/app-store-reviews.svg)](http://badge.fury.io/js/app-store-reviews)
 
 Node.js module to download user reviews from the iTunes Store and the Mac App Store.
 
