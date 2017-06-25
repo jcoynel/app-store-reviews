@@ -67,7 +67,7 @@ var mysql = require('mysql');
 
 function mysqlConnection()
 {
-  var db = mysql.createConnection ({
+	var db = mysql.createConnection ({
 		user : 'root',
 	    password : 'root',
 	    host : "localhost",
@@ -78,7 +78,7 @@ function mysqlConnection()
 	return db;
 }
 
-function insertReviewInDb(id, app, author, version, rate, title, comment, country)
+function insertReviewInDb(id, app, author, version, rate, title, comment, country, updated)
 {
 	var review = {
 		id: id,
@@ -88,7 +88,8 @@ function insertReviewInDb(id, app, author, version, rate, title, comment, countr
 		rate: rate,
 		title: title,
 		comment: comment,
-		country: country
+		country: country,
+		review_date: updated,
 	}
 
 	var db = mysqlConnection();
@@ -98,7 +99,7 @@ function insertReviewInDb(id, app, author, version, rate, title, comment, countr
 }
 
 appStoreReviews.on('review', function(review) {
-	insertReviewInDb(review['id'], review['app'], review['author'], review['version'], review['rate'], review['title'], review['comment'], review['country']);
+	insertReviewInDb(review['id'], review['app'], review['author'], review['version'], review['rate'], review['title'], review['comment'], review['country'], review['updated']);
 });
 
 appStoreReviews.on('nextPage', function(nextPage) {
