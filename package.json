@@ -21,7 +21,7 @@
   ],
   "main": "lib/app-store-reviews.js",
   "license": "MIT",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "name": "app-store-reviews",
   "description": "Download user reviews from the iTunes Store and the Mac App Store."
 }
