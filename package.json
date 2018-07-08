@@ -6,7 +6,8 @@
   },
   "homepage": "https://github.com/jcoynel/app-store-reviews",
   "dependencies": {
-    "request": ">=2.0.0"
+    "request": ">=2.0.0",
+    "xml2js": "*"
   },
   "repository": {
     "type": "git",
