@@ -1,3 +1,5 @@
+⚠️⚠️ **This repository is no longer maintained. You may want to use [jcoynel/app-store-reviews-swift](https://github.com/jcoynel/app-store-reviews-swift) instead.** ⚠️⚠️
+
 ## About app-store-reviews
 
 [![NPM version](https://badge.fury.io/js/app-store-reviews.svg)](http://badge.fury.io/js/app-store-reviews)
